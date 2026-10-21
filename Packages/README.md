@@ -1,8 +1,27 @@
 # Pre-made Packages
 
-This folder keeps the USB stick descriptor for each catalog entry. The package source and the zip named in `NEMESIS.data` are not in this repository.
+This folder contains the NEMESIS package catalog. Some existing entries provide only USB installation descriptors, while new package contributions should include their reviewable source files.
 
-Use one NEMESIS package on the USB drive at a time. Copy `NEMESIS.data` to the stick root and the zip to the relative `path` in that descriptor (`packages/<id>.zip`).
+## Contributing a package
+
+**Provide the unpacked contents of the NEMESIS package directly in its own folder** under `Packages/<Package Name>/`. Do not commit a prebuilt ZIP as the contribution, and do not submit only a USB installer descriptor when contributing a new package. Keep relative paths exactly as they would appear at the root of the installable package archive.
+
+For example:
+
+```text
+Packages/
+  My Package/
+    NEMESIS.data           # package manifest: id, name, types, services, etc.
+    README.md              # what it does, compatibility, install and uninstall
+    svc/daemon.sh          # if the package registers a service
+    scripts/preuninstall.sh
+    bin/tool.sh            # optional application
+    tests/                 # optional source/tests
+```
+
+The `NEMESIS.data` in a **package source folder** is its own manifest (for example, `[nemesis] id=my.tool` and `[service.0]`). This differs from a **USB-root installer descriptor**, which uses `[nemesis] type=install` and `path=packages/my.tool.zip` to point to a ZIP on the USB drive. Existing descriptor-only entries in this catalog remain as-is.
+
+To create an installable ZIP from the unpacked package, follow [the package builder documentation](../04-Packages.md). A USB stick can then contain that ZIP at the relative `path` specified by its USB-root installer descriptor. Use one NEMESIS installer descriptor at a time on the stick.
 
 ## Catalog
 
