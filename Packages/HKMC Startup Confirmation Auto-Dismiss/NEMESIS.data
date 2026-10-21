@@ -1,4 +1,18 @@
 [nemesis]
+id=local.hkmc.factory82
+name=HKMC Factory 82 - Boot-Ready Wake Monitor
 version=4.2
-type=install
-path=packages/hkmc.factory82.bootready-v4.2.nemesis.zip
+types=application,service
+preuninstall=scripts/preuninstall.sh
+
+[app.0]
+kind=sh
+path=bin/diagnostics.sh
+uid=root
+
+[service.0]
+name=apply
+kind=sh
+path=svc/watch.sh
+uid=root
+mode=restart
